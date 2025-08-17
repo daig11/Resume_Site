@@ -105,53 +105,60 @@
   </footer>
 
   <!-- Binary Rain Script -->
-  <script>
-    const canvas = document.getElementById('binaryRain');
-    const ctx = canvas.getContext('2d');
-    const binary = "01";
-    const fontSize = 16;
-    let columns;
-    let drops = [];
+<script>
+window.addEventListener('load', () => {
+  const canvas = document.getElementById('binaryRain');
+  const ctx = canvas.getContext('2d');
+  const binary = "01";
+  const fontSize = 18;
+  let columns;
+  let drops = [];
 
-    function initDrops() {
-      columns = Math.floor(canvas.width / fontSize);
-      drops = [];
-      for (let x = 0; x < columns; x++) {
-        drops[x] = Math.random() * canvas.height;
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    columns = Math.floor(canvas.width / fontSize);
+    drops = [];
+    for (let x = 0; x < columns; x++) {
+      drops[x] = Math.random() * canvas.height;
+    }
+  }
+
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+
+  function draw() {
+    // Fully black background
+    ctx.fillStyle = "rgba(0,0,0,1)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Bright green numbers with glow
+    ctx.fillStyle = "#00ff00";
+    ctx.shadowColor = "#00ff00";
+    ctx.shadowBlur = 8;
+    ctx.font = fontSize + "px monospace";
+
+    for (let i = 0; i < drops.length; i++) {
+      const text = binary[Math.floor(Math.random() * binary.length)];
+      ctx.fillText(text, i * fontSize, drops[i]);
+
+      // Slower drop speed
+      drops[i] += Math.random() * 0.8 + 0.2;
+
+      // Reset drop when it reaches bottom
+      if (drops[i] > canvas.height && Math.random() > 0.975) {
+        drops[i] = 0;
       }
     }
 
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      initDrops();
-    }
+    requestAnimationFrame(draw);
+  }
 
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
+  draw();
+});
+</script>
 
-    function draw() {
-      ctx.fillStyle = "rgba(0, 0, 0, 0.15)";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      ctx.fillStyle = "#00ff00";
-      ctx.font = fontSize + "px monospace";
-
-      for (let i = 0; i < drops.length; i++) {
-        if (Math.random() > 0.3) continue;
-        const text = binary[Math.floor(Math.random() * binary.length)];
-        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-
-        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-          drops[i] = 0;
-        }
-
-        drops[i]++;
-      }
-    }
-
-    setInterval(draw, 50);
-  </script>
 
 </body>
 </html>
+
