@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Joshua Daigle | Portfolio & Resume</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Canvas for binary rain background -->
+  <canvas id="binaryRain"></canvas>
+
+  <header>
+    <div class="header-content">
+      <div class="header-text">
+        <h1>Joshua Daigle</h1>
+        <p>IT & Cybersecurity Professional | CompTIA Security+ | CJIS-Trained | CCNA & CySA+ Candidate</p>
+        <p>Parrish, FL | <a href="mailto:daigle1111@gmail.com">daigle1111@gmail.com</a> | (941) 224-4770</p>
+      </div>
+      <a href="Joshua_Daigle_Resume.pdf" class="download-btn" download>Download Resume</a>
+    </div>
+  </header>
+
+  <nav>
+    <a href="#summary">Summary</a>
+    <a href="#certifications">Certifications</a>
+    <a href="#skills">Skills</a>
+    <a href="#experience">Experience</a>
+    <a href="#education">Education & Projects</a>
+  </nav>
+
+  <section id="summary">
+    <h2>Professional Summary</h2>
+    <p>Motivated IT and cybersecurity professional with hands-on experience in technical support, network infrastructure, and security solutions. CompTIA Security+ certified, CJIS-trained, and currently pursuing CCNA and CySA+. Proven ability to deliver high-quality installations, troubleshoot complex issues, and improve system reliability while maintaining security compliance. Dedicated to continuous learning and contributing to secure, efficient IT environments.</p>
+  </section>
+
+  <section id="certifications">
+    <h2>Certifications</h2>
+    <ul>
+      <li>CompTIA Security+ (2024-2027)</li>
+      <li>CJIS Security Awareness (2025-2026)</li>
+    </ul>
+  </section>
+
+  <section id="skills">
+    <h2>Technical Skills</h2>
+    <ul>
+      <li><strong>Networking & Security:</strong> VPN, DNS, DHCP, TCP/IP, Firewalls, LAN/WAN, Network Monitoring, Load Balancing, Information Security</li>
+      <li><strong>Systems & Tools:</strong> Active Directory, Microsoft Windows Server, Microsoft Exchange, Microsoft SQL Server, VMware, Linux, ServiceNow</li>
+      <li><strong>Other Skills:</strong> Disaster Recovery, Identity & Access Management, Encryption, Software/Hardware Troubleshooting, Customer Service</li>
+    </ul>
+  </section>
+
+  <section id="experience">
+    <h2>Professional Experience</h2>
+    <h3>IT Installation Technician / Support Specialist - Form 10 Group, Tampa, FL (Nov 2024 - Present)</h3>
+    <ul>
+      <li>Installed and configured phones, PCs, scanners, printers, and security devices for state agencies, ensuring minimal downtime and operational continuity.</li>
+      <li>Deployed vape detection sensors in educational facilities, supporting safety initiatives.</li>
+      <li>Maintained detailed deployment records and ensured compliance with client-specific network and security standards.</li>
+      <li>Provided technical support for end-users, resolving hardware, software, and networking issues efficiently.</li>
+      <li>Assisted with Active Directory management, including account creation, password resets, and permissions.</li>
+      <li>Troubleshot remote access and VPN connectivity, ensuring secure and reliable user connections.</li>
+      <li>Delivered clear communication and guidance to non-technical staff, improving overall IT support satisfaction.</li>
+    </ul>
+
+    <h3>Help Desk Technician (Contract) - Florida Virtual School, Pensacola, FL (Jul 2024 - Sep 2024)</h3>
+    <ul>
+      <li>Resolved an average of 50 support tickets weekly, maintaining a 95% customer satisfaction rating.</li>
+      <li>Achieved consistent first-call resolution within 15 minutes for hardware, software, and network issues.</li>
+      <li>Supported remote access troubleshooting, MFA setup, and Active Directory account management.</li>
+    </ul>
+
+    <h3>Grocery Clerk - Publix, Parrish, FL (Dec 2020 - Present)</h3>
+    <ul>
+      <li>Maintained accurate stock rotation and inventory levels, reducing waste and improving department efficiency.</li>
+      <li>Recognized as a "Role Model" associate for consistently exceeding performance expectations.</li>
+    </ul>
+
+    <h3>Expo/Food Runner - Anna Maria Oyster Bar, Ellenton, FL (Aug 2019 - Nov 2020)</h3>
+    <ul>
+      <li>Coordinated between kitchen and service staff to ensure prompt, accurate order delivery.</li>
+    </ul>
+  </section>
+
+  <section id="education">
+    <h2>Education & Projects</h2>
+    <h3>Cybersecurity Program - Manatee Technical College, Bradenton, FL (Aug 2023 - Feb 2024)</h3>
+    <ul>
+      <li>Hands-on labs in securing and troubleshooting networks, plus real-world observation of financial institution security infrastructure.</li>
+    </ul>
+
+    <h3>Self-Education in IT, Cybersecurity, Computer Science (2020 - Present)</h3>
+    <ul>
+      <li>Created IT/cybersecurity educational content across multiple platforms (3,000+ followers).</li>
+      <li>Configured a network-wide ad blocker and hosted an OpenVPN server for secure remote access.</li>
+      <li>Upgraded home and client network infrastructure with enterprise-grade equipment.</li>
+      <li>Configured Home Lab to use Active Directory using VMs to deepen knowledge of AD configuration and concepts.</li>
+    </ul>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Joshua Daigle | <a href="https://linkedin.com" target="_blank">LinkedIn</a> | <a href="https://github.com" target="_blank">GitHub</a></p>
+  </footer>
+
+  <!-- Binary Rain Script -->
+  <script>
+    const canvas = document.getElementById('binaryRain');
+    const ctx = canvas.getContext('2d');
+    const binary = "01";
+    const fontSize = 16;
+    let columns;
+    let drops = [];
+
+    function initDrops() {
+      columns = Math.floor(canvas.width / fontSize);
+      drops = [];
+      for (let x = 0; x < columns; x++) {
+        drops[x] = Math.random() * canvas.height;
+      }
+    }
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      initDrops();
+    }
+
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    function draw() {
+      ctx.fillStyle = "rgba(0, 0, 0, 0.15)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = "#00ff00";
+      ctx.font = fontSize + "px monospace";
+
+      for (let i = 0; i < drops.length; i++) {
+        if (Math.random() > 0.3) continue;
+        const text = binary[Math.floor(Math.random() * binary.length)];
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+
+        drops[i]++;
+      }
+    }
+
+    setInterval(draw, 50);
+  </script>
+
+</body>
+</html>
